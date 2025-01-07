@@ -173,6 +173,10 @@ def main():
     log("INFO", "start")
     listener = os.open(PIPE_PATH_LISTENER, os.O_RDONLY | os.O_NONBLOCK)
     sender = os.open(PIPE_PATH_SENDER, os.O_RDWR | os.O_NONBLOCK)
+
+    a = json.loads(open(CONFIG, 'r').read())["autostart"]
+    for l in a:
+        safe_run_function(start, SafeData([get_app_from_id(l)]))
     while True:
         try:
             try:
