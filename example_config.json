@@ -1,0 +1,10 @@
+{
+    "tasks": [
+        {
+            "id": "html-server",
+            "user": "server-service",
+            "dir": "/server/html",
+            "run": "./st.sh"
+        }
+    ]
+}

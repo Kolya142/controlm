@@ -1,0 +1,16 @@
+[Unit]
+Description=This Daemon Proccess runs 
+After=network.target
+
+[Service]
+Environment="PATH=/usr/bin:/usr/bin/share:/bin"
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/server/controlm/
+ExecStart=python3 /server/controlm/controlmd.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
