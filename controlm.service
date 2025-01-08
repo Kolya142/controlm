@@ -7,8 +7,8 @@ Environment="PATH=/usr/bin:/usr/bin/share:/bin"
 Type=simple
 User=root
 Group=root
-WorkingDirectory=/server/controlm/
-ExecStart=python3 /server/controlm/controlmd.py
+WorkingDirectory=/home/sony/controlm/
+ExecStart=python3 /home/sony/controlm/controlmd.py
 Restart=always
 RestartSec=3
 

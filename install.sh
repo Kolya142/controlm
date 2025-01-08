@@ -5,3 +5,4 @@ sudo systemctl daemon-reload || exit 1
 sudo systemctl start controlm.service || exit 1
 sudo systemctl enable controlm.service
 sudo cp controlm.py /usr/bin/controlm
+sudo chmod +x /usr/bin/controlm

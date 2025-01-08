@@ -1,0 +1,13 @@
+{
+    "autostart": [
+
+    ],
+    "tasks": [
+        {
+            "id": "test",
+            "user": "root",
+            "dir": "/home/sony/controlm",
+            "run": "python3 -m http.server 8080"
+        }
+    ]
+}

@@ -1,4 +1,7 @@
 {
+    "autostart": [
+        "html-server"
+    ],
     "tasks": [
         {
             "id": "html-server",

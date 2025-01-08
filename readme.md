@@ -2,5 +2,6 @@
 **A simple control service**
 ## Install
 [Config example](example_config.json)\
-path: /server/controlm.json \
-[setup file](controlmd.py)
+[setup file1](controlmd.py)
+[file2](controlm.py)
+[file3](controlm.service)

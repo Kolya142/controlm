@@ -9,8 +9,8 @@ from typing import Tuple, List
 from datetime import datetime
 import psutil
 
-CONFIG = "/server/controlm.json"
-LOGPATH = "/server/controlm/log.txt"
+CONFIG = "controlm.json"
+LOGPATH = "log.txt"
 PIPE_PATH_LISTENER = "/tmp/controlm.pipe0"
 PIPE_PATH_SENDER = "/tmp/controlm.pipe1"
 
@@ -46,7 +46,7 @@ class SafeData:
     def __init__(self, data_: list | None = None):
         self.data = []
         self.name = rndstr()
-        print(f"init SafeData({self.name})")
+        log("INFO", f"init SafeData({self.name})")
         if data_ is not None:
             for d in data_:
                 self.append(d)

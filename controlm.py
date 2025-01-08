@@ -1,21 +1,48 @@
+#!/bin/python3
 import json
 import os
+import signal
 import sys
 import time
 from typing import List
 
-CONFIG = "/server/controlm.json"
+CONFIG = "controlm.json"
 PIPE_PATH_LISTENER = "/tmp/controlm.pipe0"
 PIPE_PATH_SENDER = "/tmp/controlm.pipe1"
+TEMP_FILE_PATH = "/tmp/controlm.temp"
 
 def send_command(cmd: str) -> str:
-    with open(PIPE_PATH_LISTENER, 'wb') as f:
-        f.write(cmd.encode())
-    time.sleep(3)
-    f = os.open(PIPE_PATH_SENDER, os.O_RDONLY)
-    b = os.read(f, 50)
-    os.close(f)
-    return b.decode()
+    for i in range(3):
+        f = os.fork()
+        if f == 0:
+            with open(PIPE_PATH_LISTENER, 'wb') as f:
+                f.write(cmd.encode())
+            time.sleep(1)
+            f = os.open(PIPE_PATH_SENDER, os.O_RDONLY)
+            b = os.read(f, 500)
+            os.close(f)
+            with open(TEMP_FILE_PATH, 'wb') as f:
+                f.write(b)
+            exit()
+        else:
+            print(f"try {i+1}")
+            time.sleep(3)
+            try:
+                with open(TEMP_FILE_PATH, 'rb') as f:
+                    b = f.read()
+                    if not b:
+                        os.kill(f, signal.SIGKILL)
+                        os.waitpid(f)
+                        continue
+                    return b.decode()
+            except Exception:
+                os.kill(f, signal.SIGKILL)
+                os.waitpid(f)
+                continue
+            with open(TEMP_FILE_PATH, 'wb') as f:
+                f.write(b'')
+    print("connect to daemon failed")
+    sys.exit(1)
 
 def run(args: List[str]) -> None:
     n = args[0].lower()
